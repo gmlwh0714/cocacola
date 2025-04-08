@@ -1,0 +1,714 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+li{list-style: none;}
+html{scroll-behavior: smooth;}
+a{text-decoration: none; color: inherit;}
+button{cursor: pointer;}
+body{
+  font-family: 'KoreanFont', 'EnglishFont', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
+  color: #fff;
+  background-color: #000;
+  width: 100%;
+  height: auto;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+@font-face {
+  font-family: 'KoreanFont';
+  src: local('Pretendard-Variable');
+  unicode-range: U+AC00-D7A3; /* 한글 범위 */
+}
+
+@font-face {
+  font-family: 'EnglishFont'; /* 영어 전용 폰트 이름을 EnglishFont로 설정 */
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  unicode-range: U+0041-005A, U+0061-007A; /* 영문 범위 (A-Z, a-z) */
+}
+
+body.scroll-enabled {
+  overflow: auto; /* 영상 확대 완료 후 스크롤 가능 */
+}
+.header{
+  display: flex;
+  margin: 30px 50px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 40px;
+}
+
+.header .logo{
+  z-index: 11;
+}
+.menu_btn{
+  cursor: pointer;
+}
+.menu_bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: none; /* 기본적으로 숨김 */
+  z-index: 9; /* 메뉴보다 낮지만 다른 요소보다 높게 */
+}
+
+.full_menu {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  background: #000;
+  color: white;
+  font-size: 80px;
+  font-weight: bold;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 200px;
+  
+  /* 기존의 translateY(-100%) 대신 투명도 0으로 설정 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease-in-out, visibility 0.1s;
+  z-index: 10;
+}
+
+
+.full_menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu > li:hover > a {
+  color: #cc0000;
+}
+
+.sub li:hover a {
+  color: #cc0000; /* 개별 항목에만 적용 */
+}
+
+.menu li a {
+  color: #fff; /* 기본 색상 */
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.menu li a.active {
+  color: #cc0000 !important; /* 클릭 시 변경될 색상 */
+  font-weight: bold; /* 강조 효과 */
+}
+.sub {
+  display: none;
+  font-size: 30px;
+}
+
+.sub li {
+  margin: 20px 0;
+}
+/* 🔹 서브메뉴 리스트 스타일 */
+.sub {
+  display: none;
+  font-size: 30px;
+  position: relative; /* 🔹 라인 위치를 설정하기 위해 필요 */
+  padding-right: 50px;
+}
+
+/* 🔹 세로 라인 스타일 */
+.sub::before {
+  content: "";
+  position: absolute;
+  right: -10px; /* 🔹 서브메뉴 왼쪽에 배치 */
+  top: 0;
+  width: 10px;
+  height: 0; /* 🔹 초기에는 보이지 않음 */
+  background-color: #cc0000;
+  animation: expandLine 1s ease-in-out forwards;
+  opacity: 0;
+}
+
+/* 🔹 애니메이션 */
+@keyframes expandLine {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 100%;
+    opacity: 1;
+  }
+}
+
+/* 🔹 활성화될 때 애니메이션 적용 */
+.has_sub.active .sub::before {
+  animation: expandLine 0.3s ease-in-out forwards;
+}
+
+.close_btn {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.menu_t {
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  font-size: 30px;
+}
+
+/* header */
+.main1{
+  width: 100%;
+  height: 1180px;
+  position: relative;
+}
+.main1 .video-container{
+  position: absolute;
+  right: 50px;
+  margin-top: -30px;
+  /* transition: all 0.3s ease-in-out; */
+  transition: 0.3s;
+  z-index: 2;
+}
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none; /* iframe 테두리 제거 */
+  margin: 0; /* iframe 마진 제거 */
+  padding: 0; /* iframe 패딩 제거 */
+  display: block; /* iframe을 블록 요소로 설정 */
+}
+.full-screen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  transform: none !important;
+  z-index: 9999 !important;
+}
+.main1 .logo1{
+  width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+  top: 260px; 
+}
+.main1 .logo1 img{
+  display: block;
+  margin: 0 auto;
+}
+.main1 .logo2{
+  width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+  top: 650px;
+}
+/* main1 */
+.bg_t {
+  position: absolute; /* 🔹 화면 고정 */
+  top: 1650px;
+  left: 250px;
+  font-size: 30px;
+  white-space: nowrap;
+
+}
+
+.main2 {
+  display: flex !important;
+  flex-wrap: nowrap; /* 가로로 한 줄 유지 */
+  overflow-x: auto;  /* 가로 스크롤 가능하도록 설정 */
+  overflow-y: hidden; /* 세로 스크롤 방지 */
+  white-space: nowrap;
+  scroll-behavior: smooth; /* 부드러운 스크롤 */
+  width: 100%; /* 화면 전체 너비 */
+  max-width: 100vw;
+  height: 100vh; /* 화면 전체 높이 */
+  max-width: 100%; /* 너무 커지는 걸 방지 */
+  justify-content: flex-start; /* 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  position: relative;
+}
+
+
+.main2::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨기기 */
+}
+
+.main2 .card{
+  position: relative;
+  width: 600px;
+  height: 840px;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #000;
+  margin: 0 20px;
+  transition: transform 0.3s ease-in-out; /* 🔹 자연스럽게 회전 */
+  will-change: transform; /* 🔹 성능 최적화 */
+}
+
+#card1 {
+  margin-left: 540px;
+}
+
+.main2 .card img{
+  margin: 80px 50px;
+}
+.main2 .card h2{
+  margin-left: 50px;
+  padding-bottom: 30px;
+  font-size: 30px;
+  font-weight: 800;
+}
+.main2 .card p{
+  margin-left: 50px;
+  font-size: 22px;
+}
+
+.main2 .card .btn{
+  border: 0;
+  outline: 0;
+  color: #fff;
+  font-weight: 600;
+  background-color: #CC0000;
+  width: 250px;
+  height: 50px;
+  border-radius: 30px;
+  font-size: 18px;
+  margin-left: 50px;
+  position: absolute;
+  bottom: 100px;
+}
+/* main2 */
+.main3{
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  background-color: #fff;
+  color: #000;
+  overflow: hidden;
+}
+.main3 p{
+  position: absolute;
+  top: 275px; left: 50px;
+  font-size: 30px;
+  font-weight: 600;
+}
+.main3 h1{
+  position: absolute;
+  top: 330px; left: 50px;
+  font-size: 80px;
+  font-weight: 800;
+}
+.main3 .btn1{
+  border: 0;
+  outline: 0;
+  color: #fff;
+  font-weight: 600;
+  background-color: #CC0000;
+  width: 300px;
+  height: 80px;
+  border-radius: 50px;
+  font-size: 30px;
+  bottom: 274px;
+  cursor: pointer;
+  position: absolute;
+  left: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn1 span {
+  display: inline-block;
+}
+
+
+/* 처음에는 보이지 않도록 설정 */
+.main3 p, 
+.main3 .h1_1, 
+.main3 .h1_2, 
+.main3 .h1_3,
+.main3 .btn1 span {
+  opacity: 0;
+  transform: translateY(40px); /* 🔹 더 적게 내려가도록 조정 (부드러운 상승) */
+}
+
+/* 화면에 보일 때만 애니메이션 실행 */
+.main3.active p {
+  animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.main3.active .h1_1 {
+  animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+.main3.active .h1_2 {
+  animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+.main3.active .h1_3 {
+  animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.9s;
+}
+
+/* 🔹 버튼 속 텍스트 애니메이션 적용 */
+.main3.active .btn1 span { /* 기존 .main3 .btn1 span에서 수정 */
+  animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 1.2s;
+}
+
+/* 🔹 애니메이션 수정 */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* main3 */
+.main4 {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-bottom: 0.5px solid #fff;
+}
+
+.main4 .line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* 라인은 화면 너비 유지 */
+  height: 100px;
+  border-bottom: 0.5px solid #fff;
+}
+
+.main4 .line .animated-title{
+  font-size: 30px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  width: 100%; max-width:100%; height: 100px;
+}
+
+.animated-title .track{
+  width: 100%;
+  line-height: 100px;
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 15s linear infinite;
+  display: flex;
+  align-items: center;
+}
+
+.animated-title img {
+  vertical-align: middle;
+}
+.animated-title img.cola1{
+  vertical-align: middle;
+  animation: rotateCola1 2s linear infinite alternate; /* 회전 애니메이션 추가 */
+  transform-origin: center; /* 회전 중심 설정 */
+}
+.animated-title img.cola2{
+  vertical-align: middle;
+  animation: rotateCola2 2s linear infinite alternate; /* 회전 애니메이션 추가 */
+  transform-origin: center; /* 회전 중심 설정 */
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); } /* 왼쪽 끝에서 시작 */
+  to { transform: translateX(-50%); } /* 왼쪽으로 이동 */
+}
+@keyframes rotateCola1 {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(-60deg);
+  }
+}
+@keyframes rotateCola2 {
+  from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(60deg);
+}
+}
+
+.main4 .line p{
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 100px;
+}
+.main4 .banner{
+  display: flex;
+  margin: 0 auto;
+  border-bottom: 0.5px solid #fff;
+}
+.main4 .column, .column1{
+  width: 33%;
+  padding: 89.5px calc((33% - 450px)/2);
+}
+.main4 .column1{
+  border-right: 0.5px solid #fff;
+  border-left: 0.5px solid #fff;
+}
+.main4 .column .title, .column1 .title{
+  /* padding: 89.5px 0 19px 96px; */
+  padding-bottom: 19px;
+}
+.main4 .column .title img, .column1 .title img{
+  padding-bottom: 40px;
+}
+.main4 .column .title p, .column1 .title p{
+  color: #cc0000;
+  font-size: 16px;
+}
+.main4 .column .txt p, .column1 .txt p{
+  position: relative;
+  font-size: 14px;
+  color: #666;
+  /* margin-left: 96px; */
+  /* margin-bottom: 89px; */
+  width: 450px;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+}
+
+.main4 .column .txt p .date, .column1 .txt p .date{
+  display: block;
+  /* display: block; */
+  margin-bottom: 10px;
+  align-self: flex-end;
+  font-size: 16px;
+}
+
+.main4 .view_more .btn{
+  background-color: inherit;
+  outline: 0;
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  width: 100%;
+  height: 100px;
+  font-size: 30px;
+  margin-left: 50px;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;
+  gap: 10px; /* 아이콘과 텍스트 간격 유지 */
+  transition: gap 0.3s ease-in-out;
+  cursor: pointer;
+}
+.main4 .view_more .btn .text-hover {
+  transition: letter-spacing 0.3s ease-in-out;
+}
+
+/* 마우스 오버 시 변화 */
+.main4 .view_more .btn .text-hover {
+  transition: letter-spacing 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* 🔹 완만한 속도 변화 */
+}
+.main4 .view_more .btn:hover .text-hover {
+  letter-spacing: 15px; /* 🔹 기존보다 더 넓어지도록 조정 */
+}
+/* 아이콘 애니메이션 추가 (필요하면 적용) */
+.main4 .view_more .btn:hover i {
+  transform: translateX(5px); /* 🔹 아이콘 오른쪽으로 살짝 이동 */
+  transition: transform 0.3s ease-in-out;
+}
+/* main4 */
+.main5{
+  margin-bottom: 140px;
+  width: 100%;
+  max-width: 100vw;
+}
+.main5 h1{
+  margin-top: 90px;
+  margin-left: 50px;
+  font-size: 80px;
+}
+.main5 .brand1 .box, .main5 .brand2 .box{
+  width: 250px; 
+  height: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s ease;
+}
+.main5 .brand1 .box img, .main5 .brand2 .box img{
+  max-width: 180px;
+  max-height: 100%;
+  object-fit: contain;
+}
+.animated-box1 .brand1 .box:hover, .animated-box2 .brand2 .box:hover {
+  width: 500px;
+}
+.animated-box1 {
+  position: relative;
+  width: 100%; max-width: 100vw; height: 250px;
+  margin-bottom:120px;
+
+}
+.animated-box1 .brand1, .animated-box2 .brand2 {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee1 20s linear infinite;
+}
+@keyframes marquee1 {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animated-box2 {
+  position: relative;
+  width: 100%; max-width:100%; height: 250px;
+}
+.animated-box2 .brand2 {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee2 20s linear infinite;
+}
+@keyframes marquee2 {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.main5 .brand1 {
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+.main5 .brand1, .main5 .brand2 {
+  display: flex;
+  white-space: nowrap;
+  gap: 20px; /* 간격 조정 */
+}
+/* main5 */
+.footer {
+  border-top: 1px solid #cc0000;
+  height: 450px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 250px;
+  overflow: hidden;
+  position: relative;
+  color: #848484;
+}
+
+.footer .logo {
+  display: flex;
+  align-items: flex-start;
+  gap: 250px;
+}
+
+.footer .logo .cocacola_logo {
+  padding-top: 120px;
+}
+
+.footer .info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 80px;
+}
+
+.footer .minimap {
+  display: flex;
+  gap: 80px;
+  padding-right: 30px;
+  padding-top: 120px;
+}
+
+.footer .minimap .map {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer .minimap .map p {
+  color: #cc0000;
+  font-weight: bold;
+}
+
+.footer .footer_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer .lo .btn {
+  background-color: inherit;
+  outline: 0;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #848484;
+  border-radius: 15px;
+  color: #848484;
+  font-size: 16px;
+  margin-left: 50px;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.footer .sns {
+  display: flex;
+  gap: 10px;
+}
+.footer .sns .sns_btn {
+  border: 1px solid #848484;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer .copyright{
+  position: absolute;
+  bottom: 80px;
+  right: 200px;
+  text-align: right;
+}
+.footer .to_top{
+  position: absolute;
+  bottom: 61px;
+  right: 90px;
+  border: 1px solid #848484;
+  outline: 0;
+  color: #848484;
+  background-color: #000;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-left: 50px;
+  line-height: 80px;
+  display: flex;
+  justify-content: center; /* 가로 정렬 */
+  align-items: center; /* 세로 정렬 */
+  text-align: center;
+}
